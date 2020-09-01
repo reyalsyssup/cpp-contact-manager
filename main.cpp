@@ -89,6 +89,20 @@ int main() {
                     }
                     std::cout << "Unable to find that contact\n";
                 }
+            } else if(option == "phone") {
+                std::string phone;
+                std::cout << "Enter the phone number to be searched > ";
+                std::cin.ignore();
+                std::getline(std::cin, phone);
+                
+                // skip every 4 lines to get phone of contact
+                for(int i = 2; i < lines.size(); i += 4) {
+                    if(lines[i] == phone) {
+                        std::cout << lines[i-2] << "\n" << lines[i-1] << "\n" << lines[i] << "\n";
+                        break;
+                    }
+                    std::cout << "Unable to find that contact\n";
+                }
             }
         }
     }
