@@ -2,6 +2,7 @@
 #include <string>
 #include <regex>
 #include <fstream>
+#include <vector>
 
 const std::regex emailPattern("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$");
 
@@ -51,6 +52,28 @@ int main() {
             file << email << std::endl;
             file << phoneNum << std::endl;
             file << std::endl;
+        } else if(option == "find") {
+            std::string option;
+            std::cout << "Search by name, email, or phone number? [name|email|phone] > ";
+            std::cin >> option;
+            if(option == "name") {
+                std::string name;
+                std::cout << "Enter the name to be searched > ";
+                std::cin.ignore();
+                std::getline(std::cin, name);
+                std::vector<std::string> lines;
+                std::string line;
+                std::ifstream file("contacts.txt");
+                while(getline(file, line)) {
+                    lines.push_back(line);
+                }
+                // skip every 4 lines to get name of contact
+                for(int i = 0; i < lines.size(); i += 4) {
+                    if(lines[i] == name) {
+                        std::cout << lines[i] << "\n" << lines[i+1] << "\n" << lines[i+2] << "\n";
+                    }
+                }
+            }
         }
     }
 }
