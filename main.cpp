@@ -53,6 +53,12 @@ int main() {
             file << phoneNum << std::endl;
             file << std::endl;
         } else if(option == "find") {
+            std::vector<std::string> lines;
+            std::string line;
+            std::ifstream file("contacts.txt");
+            while(getline(file, line)) {
+                lines.push_back(line);
+            }
             std::string option;
             std::cout << "Search by name, email, or phone number? [name|email|phone] > ";
             std::cin >> option;
@@ -61,17 +67,27 @@ int main() {
                 std::cout << "Enter the name to be searched > ";
                 std::cin.ignore();
                 std::getline(std::cin, name);
-                std::vector<std::string> lines;
-                std::string line;
-                std::ifstream file("contacts.txt");
-                while(getline(file, line)) {
-                    lines.push_back(line);
-                }
                 // skip every 4 lines to get name of contact
                 for(int i = 0; i < lines.size(); i += 4) {
                     if(lines[i] == name) {
                         std::cout << lines[i] << "\n" << lines[i+1] << "\n" << lines[i+2] << "\n";
+                        break;
                     }
+                    std::cout << "Unable to find that contact\n";
+                }
+            } else if(option == "email") {
+                std::string email;
+                std::cout << "Enter the email to be searched > ";
+                std::cin.ignore();
+                std::getline(std::cin, email);
+                
+                // skip every 4 lines to get email of contact
+                for(int i = 1; i < lines.size(); i += 4) {
+                    if(lines[i] == email) {
+                        std::cout << lines[i-1] << "\n" << lines[i] << "\n" << lines[i+1] << "\n";
+                        break;
+                    }
+                    std::cout << "Unable to find that contact\n";
                 }
             }
         }
