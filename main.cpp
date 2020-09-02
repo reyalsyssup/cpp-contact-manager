@@ -12,6 +12,31 @@ void toLowercase(std::string &string, int length) {
     }
 }
 
+// std::string readJSON(std::string type, std::string value) {
+//     Json::Reader reader;
+//     Json::Value root;
+
+//     std::string jsonData;
+
+//     std::ifstream file("contacts.json");
+//     if(!file.is_open()) std::cout << "File did not open correctly\n";
+//     std::string output;
+//     while(getline(file, output)) {
+//         jsonData += output + "\n";
+//     }
+//     bool parseSuccess = reader.parse(jsonData, root, false);
+    
+//     if (parseSuccess) {
+//         const Json::Value resultValue = root;
+//         for(int i = 0; i < root.size(); i++) {
+//             if(root[i][type] == value) return root[i].asString();
+//         }
+//         // std::string result = resultValue[type].asString();
+//         // return result;
+//     } else return "Something went wrong when reading json data.";
+//     return "Could not find that contact.";
+// }
+
 void getEmail(std::string &email) {
     std::cout << "Enter new contact's email > ";
     std::cin >> email;
@@ -73,8 +98,8 @@ int main() {
                         std::cout << lines[i] << "\n" << lines[i+1] << "\n" << lines[i+2] << "\n";
                         break;
                     }
-                    std::cout << "Unable to find that contact\n";
                 }
+                std::cout << "Unable to find that contact\n";
             } else if(option == "email") {
                 std::string email;
                 std::cout << "Enter the email to be searched > ";
@@ -87,8 +112,8 @@ int main() {
                         std::cout << lines[i-1] << "\n" << lines[i] << "\n" << lines[i+1] << "\n";
                         break;
                     }
-                    std::cout << "Unable to find that contact\n";
                 }
+                std::cout << "Unable to find that contact\n";
             } else if(option == "phone") {
                 std::string phone;
                 std::cout << "Enter the phone number to be searched > ";
@@ -101,8 +126,8 @@ int main() {
                         std::cout << lines[i-2] << "\n" << lines[i-1] << "\n" << lines[i] << "\n";
                         break;
                     }
-                    std::cout << "Unable to find that contact\n";
                 }
+                std::cout << "Unable to find that contact\n";
             }
         }
     }
