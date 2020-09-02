@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 
+// email regex pattern
 const std::regex emailPattern("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$");
 
 void toLowercase(std::string &string, int length) {
@@ -86,48 +87,55 @@ int main() {
             }
             std::string option;
             std::cout << "Search by name, email, or phone number? [name|email|phone] > ";
-            std::cin >> option;
+            // must do cin.ignore() here as we havent done it prevciously
+            std::cin.ignore();
+            std::getline(std::cin, option);
             if(option == "name") {
+                bool found = false;
                 std::string name;
                 std::cout << "Enter the name to be searched > ";
-                std::cin.ignore();
+                // musn't do cin ignore here because the buffer has already been cleared
+                // std::cin.ignore();
                 std::getline(std::cin, name);
                 // skip every 4 lines to get name of contact
                 for(int i = 0; i < lines.size(); i += 4) {
                     if(lines[i] == name) {
                         std::cout << lines[i] << "\n" << lines[i+1] << "\n" << lines[i+2] << "\n";
+                        found = true;
                         break;
                     }
                 }
-                std::cout << "Unable to find that contact\n";
+                if(!found) std::cout << "Unable to find that contact\n";
             } else if(option == "email") {
+                bool found = false;
                 std::string email;
                 std::cout << "Enter the email to be searched > ";
-                std::cin.ignore();
                 std::getline(std::cin, email);
                 
                 // skip every 4 lines to get email of contact
                 for(int i = 1; i < lines.size(); i += 4) {
                     if(lines[i] == email) {
                         std::cout << lines[i-1] << "\n" << lines[i] << "\n" << lines[i+1] << "\n";
+                        found = true;
                         break;
                     }
                 }
-                std::cout << "Unable to find that contact\n";
+                if(!found) std::cout << "Unable to find that contact\n";
             } else if(option == "phone") {
+                bool found = false;
                 std::string phone;
                 std::cout << "Enter the phone number to be searched > ";
-                std::cin.ignore();
                 std::getline(std::cin, phone);
                 
                 // skip every 4 lines to get phone of contact
                 for(int i = 2; i < lines.size(); i += 4) {
                     if(lines[i] == phone) {
                         std::cout << lines[i-2] << "\n" << lines[i-1] << "\n" << lines[i] << "\n";
+                        found = true;
                         break;
                     }
                 }
-                std::cout << "Unable to find that contact\n";
+                if(!found) std::cout << "Unable to find that contact\n";
             }
         }
     }
